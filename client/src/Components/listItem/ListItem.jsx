@@ -5,9 +5,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function ListItem({index, item}){
+    
     const[isHovered, setIsHovered] = useState(false);
     const[movie, setMovie] = useState({});
-
     useEffect(()=>{
         const getMovie = async ()=>{
             try{
@@ -26,7 +26,7 @@ export default function ListItem({index, item}){
      },[item]);
 
     return(
-        <Link to={{pathname:"/watch", movie:movie}}>
+        <Link to="/watch" state={{movie: movie}}>
         <div className="listItem" 
         onMouseEnter={()=>setIsHovered(true)} 
         onMouseLeave={()=>setIsHovered(false)}
