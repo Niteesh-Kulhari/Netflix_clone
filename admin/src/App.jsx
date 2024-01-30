@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import './App.css'
 import Topbar from './components/topbar/Topbar'
@@ -11,32 +11,38 @@ import NewUser from './pages/newUser/NewUser'
 import ProductList from './pages/productList/ProductList'
 import Product from './pages/product/Product'
 import NewProduct from './pages/newProduct/NewProduct'
+import axios from "axios";
+import Login from './pages/login/Login'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <BrowserRouter>
-      <Topbar></Topbar>
-      <div className="container">
-        <Sidebar/>
-        
-        <Routes>
-          <Route exact path='/' element={<Home/>}/>
-          <Route path='/users' element={<UserList/>}/>
-          <Route path='/user/:userId' element={<User/>}/>
-          <Route path='/newUser' element={<NewUser/>}/>
-          
-          <Route path='/products' element={<ProductList/>}/>
-          <Route path='/products/:productsId' element={<Product/>}/>
-          <Route path='/newProduct' element={<NewProduct/>}/>
+    <BrowserRouter> 
+       <Routes>
+       <Route element={
+            <>
+                  <Topbar></Topbar>
+                  <div className="container">
+                  <Sidebar/>
+                  <Route exact path='/' element={<Home/>}/>
+                  <Route path='/users' element={<UserList/>}/>
+                  <Route path='/user/:userId' element={<User/>}/>
+                  <Route path='/newUser' element={<NewUser/>}/>
+                  <Route path='/login' element={<Login/>}/>
+                  <Route path='/movies' element={<ProductList/>}/>
+                  <Route path='/products/:productsId' element={<Product/>}/>
+                  <Route path='/newProduct' element={<NewProduct/>}/>
+                  </div>
+          </>
+        }/>
+
+        <Route path='/login' element={<Login/>}/>
         </Routes>
-        
-      </div>
       </BrowserRouter>
     </>
   )
 }
 
 export default App
+
+

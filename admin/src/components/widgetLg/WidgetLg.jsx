@@ -12,6 +12,7 @@ export default function WidgetLg() {
     <div className='widgetLg'>
       <h3 className="widgetLgTitle">Latest Transaction</h3>
       <table className="widgetLgTable">
+        <tbody>
         <tr className="widgetLgTr">
             <th className="widgetLgTh">Customer</th>
             <th className="widgetLgTh">Date</th>
@@ -63,6 +64,7 @@ export default function WidgetLg() {
             <td className="widgetLgAmount">$122.00</td>
             <td className='widgetLgStatus'><Button type="Approved"/></td>
         </tr>
+        </tbody>
       </table>
     </div>
   )
