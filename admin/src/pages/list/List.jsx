@@ -1,24 +1,23 @@
 import { Link, useLocation, useParams } from "react-router-dom"
-import "./product.css"
+import "./list.css"
 import { Publish } from "@material-ui/icons"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Product() {
-    const[movie, setMovie] = useState([]);
+export default function List() {
+    const[list, setList] = useState([]);
     const id = useParams()
-
     useEffect(()=>{
         const fetchData = async ()=>{
 
             try {
-                const res = await axios.get("http://localhost:8800/api/movies/find/"+id.productId, {
+                const res = await axios.get("http://localhost:8800/api/lists/find/"+id.listId, {
                 headers: {
                     token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken
                 }
             })
-
-            setMovie(res.data);
+            
+            setList(res.data);
             } catch (error) {
                 console.log(error)
             }
@@ -28,15 +27,15 @@ export default function Product() {
     },[id])
 
 
-    console.log(movie);
+    //console.log(movie);
 
     
     
   return (
     <div className="product">
       <div className="productTitleContainer">
-        <h1 className="productTitle">Movie</h1>
-        <Link to="/newProduct">
+        <h1 className="productTitle">List</h1>
+        <Link to="/newlist">
         <button className="productCreateButton">Create</button>
         </Link>
       </div>
@@ -44,25 +43,20 @@ export default function Product() {
       <div className="productTop">
         <div className="productTopRight">
             <div className="productInfoTop">
-                <img src={movie.img} className="productInfoImg" />
-                <span className="productName">{movie.title}</span>
+                <span className="productName">{list.title || ''}</span>
             </div>
             <div className="productInfoBottom">
                 <div className="productInfoItem">
                     <span className="productInfoKey">id:</span>
-                    <span className="productInfoValue">{movie._id}</span>
+                    <span className="productInfoValue">{list._id || ''}</span>
                 </div>
                 <div className="productInfoItem">
                     <span className="productInfoKey">genre:</span>
-                    <span className="productInfoValue">{movie.genre}</span>
+                    <span className="productInfoValue">{list.genre || ''}</span>
                 </div>
                 <div className="productInfoItem">
-                    <span className="productInfoKey">Year:</span>
-                    <span className="productInfoValue">{movie.year}</span>
-                </div>
-                <div className="productInfoItem">
-                    <span className="productInfoKey">Limit:</span>
-                    <span className="productInfoValue">{movie.limit}</span>
+                    <span className="productInfoKey">Type:</span>
+                    <span className="productInfoValue">{list.type || ''}</span>
                 </div>
             </div>
         </div>
@@ -71,21 +65,15 @@ export default function Product() {
       <form className="productForm">
               <div className="productFormLeft">
                   <label>Movie Title</label>
-                  <input type="text" placeholder={movie.title} />
-                  <label>Year</label>
-                  <input type="text" placeholder={movie.year}/>
+                  <input type="text" placeholder={list.title || ''} />
                   <label>Genre</label>
-                  <input type="text" placeholder={movie.genre}/>
-                  <label>Limit</label>
-                  <input type="text" placeholder={movie.limit}/>
-                  <label>Trailer</label>
-                  <input type="file" placeholder={movie.trailer}/>
-                  <label>Video</label>
-                  <input type="file" placeholder={movie.video}/>
+                  <input type="text" placeholder={list.genre || ''}/>
+                  <label>Type</label>
+                  <input type="text" placeholder={list.type || ''}/>
               </div>
               <div className="productFormRight">
                   <div className="productUpload">
-                      <img src={movie.img} alt="" className="productUploadImg" />
+                      {/* <img src={movie.img} alt="" className="productUploadImg" /> */}
                       <label for="file">
                           <Publish/>
                       </label>

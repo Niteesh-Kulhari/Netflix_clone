@@ -33,6 +33,22 @@ router.delete("/:id",verify, async(req,res)=>{
     }
 })
 
+// Get single list
+
+router.get("/find/:id", verify, async(req, res)=>{
+    if(req.user.isAdmin){
+        let list = []
+        try {
+            list = await List.findById(req.params.id);
+            res.status(200).json(list);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }else{
+        res.status(403).json("You are not allowed");
+    }
+})
+
 
 //Get List
 
